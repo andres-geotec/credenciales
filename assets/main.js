@@ -352,7 +352,7 @@ async function exportarPDF() {
   texto += "\n800-837-40-95";
   d.text(texto, x_actual, y_actual + 45, { align: "center" });
   
-  if (qrImg) d.addImage(qrImg, "PNG", x_inicial + 5, y_actual + 55, 15, 15);
+  if (qrImg) d.addImage(qrImg, "PNG", x_inicial + 2, y_actual + 52, 20, 20);
   d.line(x_inicial + 2, y_actual + 74, x_inicial + ancho - 2, y_actual + 74);
   d.text("FIRMA DEL EMPLEADO", x_actual, y_actual + 78, { align: "center" });
 
@@ -373,11 +373,11 @@ async function exportarPDF() {
   texto += "\nEDO. MÉXICO C.P. 52975";
   // d.text(texto, x_actual, y_actual + 12, { align: "center" });
   let alto_foto = 28, ancho_foto = 20;
-  // if (fotoB64) d.addImage(fotoB64, "JPEG", x_inicial + ancho + 7, 21, 14, 18);
-  // else {
+  if (fotoB64) d.addImage(fotoB64, "JPEG", x_actual - (ancho_foto / 2), y_actual + 14, ancho_foto, alto_foto);
+  else {
     d.rect(x_actual - (ancho_foto / 2), y_actual + 14, ancho_foto, alto_foto);
     d.text("FOTO", x_actual, y_actual + 28, { align: "center" });
-  // }
+  }
   // d.setFontSize(5);
     
   // d.text(n.substring(0, 24).toUpperCase(), x_inicial + ancho + 14, 42, { align: "center" });
