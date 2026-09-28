@@ -5,8 +5,17 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      supabaseUrl: import.meta.env.NEXT_PUBLIC_SUPABASE_URL,
-      supabaseAnonKey: import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      supabaseUrl: import.meta.env.NUXT_PUBLIC_SUPABASE_URL,
+      supabaseAnonKey: import.meta.env.NUXT_PUBLIC_SUPABASE_KEY,
+      emailAdmin: import.meta.env.NUXT_EMAIL_ADMIN,
     }
+  },
+
+  modules: [
+    '@nuxtjs/supabase'
+  ],
+  
+  supabase: {
+    redirect: false
   },
 })
