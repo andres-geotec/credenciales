@@ -8,6 +8,7 @@ export default defineNuxtConfig({
       supabaseUrl: import.meta.env.NUXT_PUBLIC_SUPABASE_URL,
       supabaseAnonKey: import.meta.env.NUXT_PUBLIC_SUPABASE_KEY,
       emailAdmin: import.meta.env.NUXT_EMAIL_ADMIN,
+      bucketImg: import.meta.env.NUXT_BUCKET_IMG,
     }
   },
 

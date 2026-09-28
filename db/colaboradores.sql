@@ -109,3 +109,40 @@ from public;
 grant execute
 on function public.obtener_colaborador_publico(uuid)
 to anon, authenticated;
+
+
+-- colaboradores-img
+create policy "Usuarios autenticados pueden subir fotos"
+on storage.objects
+for insert
+to authenticated
+with check (
+  bucket_id = 'colaboradores-img'
+);
+
+create policy "Usuarios autenticados pueden consultar fotos"
+on storage.objects
+for select
+to authenticated
+using (
+  bucket_id = 'colaboradores-img'
+);
+
+create policy "Usuarios autenticados pueden actualizar fotos"
+on storage.objects
+for update
+to authenticated
+using (
+  bucket_id = 'colaboradores-img'
+)
+with check (
+  bucket_id = 'colaboradores-img'
+);
+
+create policy "Usuarios autenticados pueden eliminar fotos"
+on storage.objects
+for delete
+to authenticated
+using (
+  bucket_id = 'colaboradores-img'
+);
