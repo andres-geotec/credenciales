@@ -42,7 +42,7 @@ async function logout() {
       Sesión iniciada
        <!-- | Total: <b id="total">0</b> / 550 -->
     </div>
-    
+
     <button
       class="btn-black"
       style="padding: 6px 12px; font-size: 13px"
@@ -51,6 +51,4 @@ async function logout() {
       Salir
     </button>
   </div>
-
-  <div>s</div>
 </template>
