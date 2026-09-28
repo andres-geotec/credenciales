@@ -67,18 +67,6 @@ async function login() {
     loading.value = false
   }
 }
-
-async function logout() {
-  loading.value = true
-  const { error } = await supabase.auth.signOut()
-
-  if (error) {
-    console.error(error)
-    return
-  }
-
-  await navigateTo('/login')
-}
 </script>
 
 
