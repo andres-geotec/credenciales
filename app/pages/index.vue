@@ -16,7 +16,8 @@ const {
       id,
       nombre,
       puesto,
-      vigencia
+      vigencia,
+      descripcion
     `)
     // .order('apellidos', { ascending: true })
     .order('nombre', { ascending: true })
@@ -38,6 +39,8 @@ async function logout() {
 
   await navigateTo('/login')
 }
+
+const carpeta = ref('TODAS')
 </script>
 
 <template>
@@ -81,12 +84,12 @@ async function logout() {
         style="flex: 1"
         oninput="renderLista()"
       /> -->
-      <select id="filtro" onchange="renderLista()">
+      <select id="filtro" v-model="carpeta">
         <option value="TODAS">Todas</option>
-        <option>TOLUCA</option>
-        <option>CDMX</option>
-        <option>CUERNAVACA</option>
-        <option>HIDALGO</option>
+        <option value="TOLUCA">TOLUCA</option>
+        <option value="CDMX">CDMX</option>
+        <option value="CUERNAVACA">CUERNAVACA</option>
+        <option value="HIDALGO">HIDALGO</option>
       </select>
     </div>
 
@@ -113,11 +116,15 @@ async function logout() {
         v-else  
       >
         <article class="lista-item" 
-          v-for="colaborador in colaboradores"
+          v-for="colaborador in colaboradores.filter(colaborador => {
+            if (carpeta === 'TODAS') return true
+
+            return colaborador['descripcion'] === carpeta
+          })"
           :key="colaborador['id']"
         >
           <div>
-            <span class="badge" :style="{background: '#b45309'}">{{ 'TOLUCA' }}</span>
+            <span class="badge" :style="{background: '#b45309'}">{{ colaborador['descripcion'] }}</span>
             <strong>{{ colaborador['nombre'] }}</strong>
             <br>
             <small>{{ colaborador['puesto'] }} | {{ colaborador['vigencia'] }}</small>
@@ -126,7 +133,7 @@ async function logout() {
           <div class="acciones">
             <button class="btn-sm btn-green" @click="navigateTo(`/colaborador/${colaborador['id']}`)">📄 Detalles</button>
             <button class="btn-sm btn-blue" @click="navigateTo(`/colaborador/editar/${colaborador['id']}`)">✏️ Editar</button>
-            <button class="btn-sm btn-red">🗑️ Borrar</button>
+            <!-- <button class="btn-sm btn-red">🗑️ Borrar</button> -->
           </div>
         </article>
       </div>

@@ -313,7 +313,8 @@ async function exportarPDF() {
   texto += "\nEDO. MÉXICO C.P. 52975";
   // d.text(texto, x_actual, y_actual + 12, { align: "center" });
   let alto_foto = 28, ancho_foto = 20;
-  if (fotoB64) d.addImage(fotoB64, "JPEG", x_actual - (ancho_foto / 2), y_actual + 14, ancho_foto, alto_foto);
+  // if (fotoB64) d.addImage(fotoB64, "JPEG", x_actual - (ancho_foto / 2), y_actual + 14, ancho_foto, alto_foto);
+  if (fotoPreview.value) d.addImage(fotoPreview.value, "JPEG", x_actual - (ancho_foto / 2), y_actual + 14, ancho_foto, alto_foto);
   else {
     d.rect(x_actual - (ancho_foto / 2), y_actual + 14, ancho_foto, alto_foto);
     d.text("FOTO", x_actual, y_actual + 28, { align: "center" });
@@ -371,9 +372,20 @@ async function exportarPDF() {
         margin-top: 10px;
       "
     >
-      <div>
+      <div style="grid-column: span 2">
         <label for="nombre">Nombre:</label>
         <input id="nombre" v-model="form.nombre" type="text" required>
+      </div>
+
+      <div>
+        <label for="carpeta">Nombre:</label>
+        <select id="carpeta" required v-model="form.descripcion">
+          <!-- <option value="TODAS">Todas</option> -->
+          <option value="TOLUCA">TOLUCA</option>
+          <option value="CDMX">CDMX</option>
+          <option value="CUERNAVACA">CUERNAVACA</option>
+          <option value="HIDALGO">HIDALGO</option>
+        </select>
       </div>
 
       <div>

@@ -56,6 +56,7 @@ if (!colaborador.value) {
         :src="colaborador.foto_url"
         :alt="`${colaborador.nombre} ${colaborador.apellidos}`"
         class="photo"
+        style="max-height: 400px"
       >
 
       <h1>
