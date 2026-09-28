@@ -1,6 +1,5 @@
-<!-- app.vue -->
 <template>
   <div>
-    <NuxtPage />
+    <h1>Inicio</h1>
   </div>
 </template>
