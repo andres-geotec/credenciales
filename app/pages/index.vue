@@ -125,7 +125,7 @@ async function logout() {
 
           <div class="acciones">
             <button class="btn-sm btn-green" @click="navigateTo(`/colaborador/${colaborador['id']}`)">📄 Detalles</button>
-            <button class="btn-sm btn-blue">✏️ Editar</button>
+            <button class="btn-sm btn-blue" @click="navigateTo(`/colaborador/editar/${colaborador['id']}`)">✏️ Editar</button>
             <button class="btn-sm btn-red">🗑️ Borrar</button>
           </div>
         </article>

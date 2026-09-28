@@ -255,7 +255,7 @@ async function guardar() {
 
       <div>
         <label for="foto">Fotografía:</label>
-        <input id="foto" type="file" accept="image/jpeg,image/png,image/webp" @change="seleccionarFoto" required>
+        <input id="foto" type="file" accept="image/jpeg,image/png,image/webp" @change="seleccionarFoto" :required="!editing">
         <small> JPG, PNG o WebP. Máximo 5 MB. </small>
       </div>
 
