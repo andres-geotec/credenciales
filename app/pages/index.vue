@@ -5,6 +5,29 @@ definePageMeta({
 
 const supabase = useSupabaseClient()
 
+const {
+  data: colaboradores,
+  pending,
+  error
+} = await useAsyncData('colaboradores', async () => {
+  const { data, error } = await supabase
+    .from('colaboradores')
+    .select(`
+      id,
+      nombre,
+      puesto,
+      vigencia
+    `)
+    // .order('apellidos', { ascending: true })
+    .order('nombre', { ascending: true })
+
+  if (error) {
+    throw error
+  }
+
+  return data
+})
+
 async function logout() {
   const { error } = await supabase.auth.signOut()
 
@@ -15,17 +38,6 @@ async function logout() {
 
   await navigateTo('/login')
 }
-
-// // Importa la función `useRuntimeConfig` para acceder a las variables de entorno
-// const config = useRuntimeConfig();
-
-// // Accede a las variables de entorno definidas en `nuxt.config.ts`
-// const supabaseUrl = config.public.supabaseUrl;
-// const supabaseAnonKey = config.public.supabaseAnonKey;
-
-// // Puedes usar estas variables para inicializar tu cliente de Supabase o para otros propósitos
-// console.log('Supabase URL:', supabaseUrl);
-// console.log('Supabase Anon Key:', supabaseAnonKey);
 </script>
 
 <template>
@@ -39,16 +51,85 @@ async function logout() {
     "
   >
     <div>
-      Sesión iniciada
+      👤 Sesión iniciada
        <!-- | Total: <b id="total">0</b> / 550 -->
     </div>
+
+    <button
+      class="btn-green"
+      style="padding: 6px 12px; font-size: 13px"
+      @click="navigateTo('/colaborador/nuevo')"
+    >
+      Registrar
+    </button>
 
     <button
       class="btn-black"
       style="padding: 6px 12px; font-size: 13px"
       @click="logout"
     >
-      Salir
+      Cerrar sesión
     </button>
+  </div>
+
+  <div class="card">
+    <h3>📋 REGISTROS</h3>
+    <div class="flex" style="margin-bottom: 10px">
+      <!-- <input
+        id="buscar"
+        placeholder="🔍 Buscar..."
+        style="flex: 1"
+        oninput="renderLista()"
+      /> -->
+      <select id="filtro" onchange="renderLista()">
+        <option value="TODAS">Todas</option>
+        <option>TOLUCA</option>
+        <option>CDMX</option>
+        <option>CUERNAVACA</option>
+        <option>HIDALGO</option>
+      </select>
+    </div>
+
+    <div id="lista">
+      <div v-if="pending">
+        Cargando colaboradores...
+      </div>
+
+      <div
+        v-else-if="error"
+        class="error"
+      >
+        Error al cargar los colaboradores.
+      </div>
+
+      <p
+        v-else-if="!colaboradores?.length"
+        style="text-align:center;color:#777;padding:15px"
+      >
+        Sin registros
+      </p>
+
+      <div
+        v-else  
+      >
+        <article class="lista-item" 
+          v-for="colaborador in colaboradores"
+          :key="colaborador['id']"
+        >
+          <div>
+            <span class="badge" :style="{background: '#b45309'}">{{ 'TOLUCA' }}</span>
+            <strong>{{ colaborador['nombre'] }}</strong>
+            <br>
+            <small>{{ colaborador['puesto'] }} | {{ colaborador['vigencia'] }}</small>
+          </div>
+
+          <div class="acciones">
+            <button class="btn-sm btn-green" @click="navigateTo(`/colaborador/${colaborador['id']}`)">📄 Detalles</button>
+            <button class="btn-sm btn-blue">✏️ Editar</button>
+            <button class="btn-sm btn-red">🗑️ Borrar</button>
+          </div>
+        </article>
+      </div>
+    </div>
   </div>
 </template>
