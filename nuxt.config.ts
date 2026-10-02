@@ -3,8 +3,41 @@ import tailwindcss from "@tailwindcss/vite";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  css: ['~/assets/css/main.css'],
   devtools: { enabled: true },
+
+  app: {
+    head: {
+      title: 'SERVIPREL | Servicios de Limpieza y Mantenimiento en México',
+      link: [
+        {
+          rel: 'icon',
+          href: 'https://serviprel.com/wp-content/uploads/2026/04/Diseno-sin-titulo-150x150.png',
+          sizes: '32x32'
+        },
+        {
+          rel: 'icon',
+          href: 'https://serviprel.com/wp-content/uploads/2026/04/Diseno-sin-titulo-300x300.png',
+          sizes: '192x192'
+        },
+        {
+          rel: 'apple-touch-icon',
+          href: 'https://serviprel.com/wp-content/uploads/2026/04/Diseno-sin-titulo-300x300.png'
+        }
+      ],
+      meta: [
+        {
+          name: 'description',
+          content: 'Somos una empresa mexicana con más de 25 años de experiencia en servicios especializados de limpieza para empresas, centros comerciales y compactado de cartón.'
+        },
+        {
+          name: 'msapplication-TileImage',
+          content: 'https://serviprel.com/wp-content/uploads/2026/04/Diseno-sin-titulo-300x300.png'
+        }
+      ]
+    }
+  },
+  
+  css: ['~/assets/css/main.css'],
 
   modules: [
     '@nuxtjs/supabase'
