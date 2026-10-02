@@ -61,7 +61,7 @@ async function generateQrUrl() {
         <button @click.prevent="generateQrUrl">
           PDF
         </button>
-        <button>
+        <button @click="navigateTo('/')">
           Cancelar
         </button>
       </div>

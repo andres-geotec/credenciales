@@ -72,7 +72,9 @@ async function login() {
 
 <template>
   <div>
-    <h1>SERVIPREL — Credenciales Oficiales</h1>
+    <h1 class="text-3xl font-bold underline">
+      SERVIPREL — Credenciales Oficiales
+    </h1>
 
     <form @submit.prevent="login">
       <div>
@@ -108,9 +110,7 @@ async function login() {
           />
         </div>
 
-        <p
-          v-if="errorMessage"
-        >
+        <p v-if="errorMessage">
           {{ errorMessage }}
         </p>
 
