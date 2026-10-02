@@ -60,29 +60,3 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.qr-container {
-  max-width: 400px;
-  margin: 20px auto;
-  font-family: sans-serif;
-  text-align: center;
-}
-input {
-  width: 80%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-button {
-  padding: 8px 16px;
-  background-color: #00dc82; /* Verde Nuxt */
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
-}
-.result img {
-  margin-top: 15px;
-  border: 1px solid #ccc;
-}
-</style>
