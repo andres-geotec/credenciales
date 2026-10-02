@@ -1,6 +1,3 @@
 <template>
-  <div>
-    <Qr />
-    <Pdf />
-  </div>
+  <NuxtPage />
 </template>
