@@ -3,24 +3,18 @@ definePageMeta({
   middleware: 'auth'
 })
 
-const supabase = useSupabaseClient()
+const router = useRouter()
 
-async function logout() {
-  const { error } = await supabase.auth.signOut()
-
-  if (error) {
-    console.error(error)
-    return
-  }
-
-  await navigateTo('/login')
+async function empleadoGuardado(id: string) {
+  // await router.push(`/colaborador/${id}`)
+  console.log(id);
 }
 </script>
 
 <template>
   <div>
-    <button @click="logout">Cerrar sesión</button>
+    <h1>DATOS DEL EMPLEADO - REGISTRO</h1>
 
-    <FormsColaborador />
+    <FormsColaborador @saved="empleadoGuardado" />
   </div>
 </template>

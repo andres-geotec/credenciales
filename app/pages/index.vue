@@ -61,24 +61,6 @@ const colaboradoresFiltrados = computed(() => {
 
 <template>
   <div>
-    <div>
-      Sesión iniciada
-    </div>
-
-    <button
-      @click="navigateTo('/colaborador/nuevo')"
-    >
-      Registrar
-    </button>
-
-    <button
-      @click="logout"
-    >
-      Cerrar sesión
-    </button>
-  </div>
-
-  <main>
     <h1>REGISTROS</h1>
     <div>
       <div>
@@ -158,5 +140,5 @@ const colaboradoresFiltrados = computed(() => {
         </ol>
       </div>
     </div>
-  </main>
+  </div>
 </template>
