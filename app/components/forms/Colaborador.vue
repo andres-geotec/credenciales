@@ -55,14 +55,14 @@ async function generateQrUrl() {
 
       <div>
         <button type="submit">
-          💾 Guardar
+          Guardar
         </button>
         <!-- <button @click.prevent="generarPDF(form)"> -->
         <button @click.prevent="generateQrUrl">
-          📄 PDF
+          PDF
         </button>
         <button>
-          ❌ Cancelar
+          Cancelar
         </button>
       </div>
 
