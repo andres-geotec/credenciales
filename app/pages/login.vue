@@ -71,34 +71,29 @@ async function login() {
 
 
 <template>
-  <main class="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-8 sm:px-6 sm:py-12">
-    <section class="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
-      <!-- <header class="mb-8">
-        <a
-          href="https://serviprel.com"
-          class="group inline-flex max-w-full items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-600/20"
+  <main
+    class="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-8 sm:px-6 sm:py-12"
+  >
+    <section
+      class="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10"
+    >
+      <form
+        class="space-y-5"
+        @submit.prevent="login"
+      >
+        <h1
+          class="text-lg font-semibold text-slate-800"
         >
-          <img
-            src="https://serviprel.com/wp-content/uploads/2026/04/LOGO-SERVIPREL-scaled-e1776093285127-1024x270.png"
-            alt=""
-            class="h-auto w-24 shrink-0 sm:w-28"
-          >
-          <span class="text-sm font-semibold leading-5 tracking-tight text-slate-900 group-hover:text-emerald-800 sm:text-base">
-            SERVIPREL — Credenciales Oficiales
-          </span>
-        </a>
-        <p class="mt-5 text-sm leading-6 text-slate-600">
-          Ingresa tus datos para acceder al panel de administración.
-        </p>
-      </header> -->
-
-      <form class="space-y-5" @submit.prevent="login">
-        <h1 class="text-lg font-semibold text-slate-800">
           Acceso como administrador
         </h1>
 
-        <div class="space-y-2">
-          <label for="email" class="block text-sm font-medium text-slate-700">
+        <div
+          class="space-y-2"
+        >
+          <label
+            for="email"
+            class="block text-sm font-medium text-slate-700"
+          >
             Correo electrónico
           </label>
           <input
@@ -113,8 +108,13 @@ async function login() {
           >
         </div>
 
-        <div class="space-y-2">
-          <label for="pass" class="block text-sm font-medium text-slate-700">
+        <div
+          class="space-y-2"
+        >
+          <label
+            for="pass"
+            class="block text-sm font-medium text-slate-700"
+          >
             Contraseña
           </label>
           <input
