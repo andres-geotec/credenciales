@@ -31,7 +31,7 @@ const user = useSupabaseUser()
           class="inline-flex shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-600/20"
         >
           <img
-            src="https://serviprel.com/wp-content/uploads/2026/04/LOGO-SERVIPREL-scaled-e1776093285127-1024x270.png"
+            src="/img/LOGO-SERVIPREL-scaled-e1776093285127-1024x270.png"
             alt="SERVIPREL"
             class="h-8 w-auto sm:h-9"
           >

@@ -11,17 +11,17 @@ export default defineNuxtConfig({
       link: [
         {
           rel: 'icon',
-          href: 'https://serviprel.com/wp-content/uploads/2026/04/Diseno-sin-titulo-150x150.png',
+          href: '/img/Diseno-sin-titulo-150x150.png',
           sizes: '32x32'
         },
         {
           rel: 'icon',
-          href: 'https://serviprel.com/wp-content/uploads/2026/04/Diseno-sin-titulo-300x300.png',
+          href: '/img/Diseno-sin-titulo-300x300.png',
           sizes: '192x192'
         },
         {
           rel: 'apple-touch-icon',
-          href: 'https://serviprel.com/wp-content/uploads/2026/04/Diseno-sin-titulo-300x300.png'
+          href: '/img/Diseno-sin-titulo-300x300.png'
         }
       ],
       meta: [
@@ -31,7 +31,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'msapplication-TileImage',
-          content: 'https://serviprel.com/wp-content/uploads/2026/04/Diseno-sin-titulo-300x300.png'
+          content: '/img/Diseno-sin-titulo-300x300.png'
         }
       ]
     }
