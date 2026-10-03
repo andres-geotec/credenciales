@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+iframe {
+  display: none !important;
+}
+
