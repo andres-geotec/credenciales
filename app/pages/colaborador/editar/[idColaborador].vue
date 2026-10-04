@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'auth'
+  middleware: 'auth',
 })
 
 const route = useRoute()
@@ -9,15 +9,13 @@ const supabase = useSupabaseClient()
 
 const idColaborador = String(route.params.idColaborador)
 
-const {
-  data: colaborador,
-  error
-} = await useAsyncData(
+const { data: colaborador, error } = await useAsyncData(
   `colaborador-editar-${idColaborador}`,
   async () => {
     const { data, error } = await supabase
       .from('colaboradores')
-      .select(`
+      .select(
+        `
         id,
         nombre,
         puesto,
@@ -29,7 +27,8 @@ const {
         vigencia,
         foto_url,
         descripcion
-      `)
+      `
+      )
       .eq('id', idColaborador)
       .single()
 
@@ -44,7 +43,7 @@ const {
 if (error.value || !colaborador.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: 'Colaborador no encontrado'
+    statusMessage: 'Colaborador no encontrado',
   })
 }
 
@@ -54,7 +53,7 @@ async function colaboradorGuardado() {
 </script>
 
 <template>
-  <div>
+  <div class="contenedor ancho-lectura m-b-10">
     <h1>Editar colaborador</h1>
 
     <FormsColaborador
