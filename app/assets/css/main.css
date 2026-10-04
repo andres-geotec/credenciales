@@ -1,6 +1,6 @@
-@import "tailwindcss";
+/* @import 'tailwindcss'; */
+@import '@sisdai.org/sisdai-estilos';
 
 iframe {
   display: none !important;
 }
-
