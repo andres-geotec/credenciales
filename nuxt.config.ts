@@ -1,4 +1,4 @@
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -12,31 +12,32 @@ export default defineNuxtConfig({
         {
           rel: 'icon',
           href: '/img/Diseno-sin-titulo-150x150.png',
-          sizes: '32x32'
+          sizes: '32x32',
         },
         {
           rel: 'icon',
           href: '/img/Diseno-sin-titulo-300x300.png',
-          sizes: '192x192'
+          sizes: '192x192',
         },
         {
           rel: 'apple-touch-icon',
-          href: '/img/Diseno-sin-titulo-300x300.png'
-        }
+          href: '/img/Diseno-sin-titulo-300x300.png',
+        },
       ],
       meta: [
         {
           name: 'description',
-          content: 'Somos una empresa mexicana con más de 25 años de experiencia en servicios especializados de limpieza para empresas, centros comerciales y compactado de cartón.'
+          content:
+            'Somos una empresa mexicana con más de 25 años de experiencia en servicios especializados de limpieza para empresas, centros comerciales y compactado de cartón.',
         },
         {
           name: 'msapplication-TileImage',
-          content: '/img/Diseno-sin-titulo-300x300.png'
-        }
-      ]
-    }
+          content: '/img/Diseno-sin-titulo-300x300.png',
+        },
+      ],
+    },
   },
-  
+
   css: ['~/assets/css/main.css'],
 
   modules: ['@nuxtjs/supabase', '@nuxt/eslint'],
@@ -47,16 +48,14 @@ export default defineNuxtConfig({
       supabaseAnonKey: import.meta.env.NUXT_PUBLIC_SUPABASE_KEY,
       emailAdmin: import.meta.env.NUXT_EMAIL_ADMIN,
       bucketImg: import.meta.env.NUXT_BUCKET_IMG,
-    }
+    },
   },
-  
+
   supabase: {
-    redirect: false
+    redirect: false,
   },
 
   vite: {
-    plugins: [
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
   },
 })
