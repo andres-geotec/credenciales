@@ -16,6 +16,7 @@ const user = useSupabaseUser()
 </script>
 
 <template>
+  <div>
   <header
     class="border-b border-slate-200 bg-white"
   >
@@ -69,4 +70,5 @@ const user = useSupabaseUser()
   </header>
 
   <slot />
+  </div>
 </template>
