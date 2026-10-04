@@ -8,6 +8,11 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format-lint": "npm run format && npm run lint",
     "clean:ci": "rm -rf node_modules .nuxt .output dist && npm cache clean -f && npm cache verify",
     "clean": "npm run clean:ci && rm -f package-lock.json",
     "reinstall": "npm run clean && npm i",
@@ -27,6 +32,7 @@
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.6",
+    "prettier": "^3.9.9",
     "typescript": "^6.0.3"
   }
 }
