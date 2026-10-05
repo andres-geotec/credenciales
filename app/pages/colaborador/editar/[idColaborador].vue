@@ -53,7 +53,7 @@ async function colaboradorGuardado() {
 </script>
 
 <template>
-  <div class="contenedor ancho-lectura m-b-10">
+  <div class="contenedor ancho-lectura m-y-5-mov m-b-maximo-esc">
     <h1>Editar colaborador</h1>
 
     <FormsColaborador

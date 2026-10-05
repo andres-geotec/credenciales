@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import type { Colaborador } from '~/types/colaborador'
+
 const supabase = useSupabaseClient()
+const user = useSupabaseUser()
 const route = useRoute()
 
 const idColaborador = String(route.params.idColaborador)
@@ -7,15 +10,13 @@ const idColaborador = String(route.params.idColaborador)
 const {
   data: colaborador,
   pending,
-  error
-} = await useAsyncData(
+  error,
+} = await useAsyncData<Colaborador>(
   `colaborador-publico-${idColaborador}`,
   async () => {
-    const { data, error } = await (supabase.rpc as any)(
-      'obtener_colaborador_publico',
-      {
-        p_id: idColaborador,
-      }
+    const { data, error } = await supabase.rpc(
+      'obtener_colaborador_publico' as never,
+      { p_id: idColaborador } as never
     )
 
     if (error) {
@@ -29,42 +30,87 @@ const {
 if (!colaborador.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: 'Colaborador no encontrado'
+    statusMessage: 'Colaborador no encontrado',
   })
 }
 </script>
 
 <template>
-  <div>
-    <div v-if="pending">
-      Cargando...
-    </div>
+  <main class="contenedor ancho-lectura m-y-maximo-esc m-y-5-mov">
+    <div v-if="pending">Cargando...</div>
+
+    <div v-else-if="error">No fue posible cargar el colaborador.</div>
 
     <div
-      v-else-if="error"
-    >
-      No fue posible cargar el colaborador.
-    </div>
-
-    <article
       v-else-if="colaborador"
+      class="tarjeta tarjeta-horizontal"
     >
       <img
-        v-if="colaborador.foto_url"
+        class="tarjeta-imagen"
         :src="colaborador.foto_url"
-        :alt="`${colaborador.nombre} ${colaborador.apellidos}`"
-        style="max-height: 400px"
-      >
+        :alt="`Colaborador ${colaborador.nombre}.`"
+      />
+      <div class="tarjeta-cuerpo">
+        <p class="tarjeta-etiqueta flex flex-contenido-separado">
+          <span class="etiqueta fondo-color-alerta">
+            {{ colaborador.descripcion }}
+          </span>
+          <span
+            class="etiqueta"
+            :class="{
+              'fondo-color-confirmacion': !validarFechaEnMexico(
+                colaborador.vigencia
+              ),
+            }"
+          >
+            {{ validarFechaEnMexico(colaborador.vigencia) ? 'NO' : '' }}
+            VIEGENTE
+          </span>
+        </p>
 
-      <h1>
-        {{ colaborador.nombre }}
-      </h1>
+        <p class="tarjeta-titulo">{{ colaborador.nombre }}</p>
 
-      <p
-        v-if="colaborador.puesto"
-      >
-        {{ colaborador.puesto }}
-      </p>
-    </article>
-  </div>
+        <ul>
+          <li>
+            Puesto:
+            <b>{{ colaborador.puesto }}</b>
+          </li>
+          <li>
+            Código interno:
+            <b>{{ colaborador.codigo_interno }}</b>
+          </li>
+          <li>
+            NSS IMSS:
+            <b>{{ colaborador.nss_imss }}</b>
+          </li>
+          <li>
+            CURP:
+            <b>{{ colaborador.curp }}</b>
+          </li>
+          <li>
+            RFC:
+            <b>{{ colaborador.rfc }}</b>
+          </li>
+          <li>
+            Fecha de ingreso:
+            <b>{{ FormatoFecha(colaborador.f_ingreso) }}</b>
+          </li>
+          <li>
+            Vigencia:
+            <b>{{ FormatoFecha(colaborador.vigencia) }}</b>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tarjeta-pie flex flex-contenido-centrado">
+        <NuxtLink
+          v-if="user"
+          class="boton boton-primario"
+          :to="`/colaborador/editar/${colaborador.id}`"
+        >
+          Editar
+        </NuxtLink>
+      </div>
+    </div>
+  </main>
 </template>

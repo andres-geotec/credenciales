@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
+const route = useRoute()
 
 async function logout() {
   const { error } = await supabase.auth.signOut()
@@ -103,7 +104,7 @@ function alternarMenu() {
 
           <li v-if="!user">
             <NuxtLink
-              to="/login"
+              :to="`/login?redirect=${route.path}`"
               class="nav-hipervinculo"
             >
               Iniciar sesión
