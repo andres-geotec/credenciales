@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import QRCode from 'qrcode'
-import { defineEmits, defineProps } from 'vue'
+import { defineEmits, defineProps, reactive } from 'vue'
 import type { Colaborador } from '~/types/colaborador'
 import generarPDF from '~/utils/pdf'
+import generarQR from '~/utils/qr'
 
 const props = defineProps<{
   colaborador?: Colaborador
@@ -208,27 +208,11 @@ async function guardar() {
   }
 }
 
-const canvasRef = ref(null)
-async function generateQrUrl() {
-  if (!form.nombre || !canvasRef.value) return
-
-  try {
-    // 1. Dibujar el código QR en el Canvas oculto
-    await QRCode.toCanvas(canvasRef.value, form.nombre, {
-      width: 300,
-      margin: 2,
-    })
-
-    // 2. Convertir el Canvas en un Blob (Archivo binario en memoria)
-    ;(canvasRef.value as HTMLCanvasElement).toBlob((blob: Blob | null) => {
-      if (!blob) return
-
-      // 3. Crear la URL local apuntando al Blob
-      generarPDF(form as Colaborador, URL.createObjectURL(blob))
-    }, 'image/png')
-  } catch (err) {
-    console.error('Error generando el código QR:', err)
-  }
+const canvasRef = ref<HTMLCanvasElement>()
+function construirCredencial() {
+  generarQR(canvasRef.value as HTMLCanvasElement, 'Hola', objectUrl =>
+    generarPDF(form as Colaborador, objectUrl, fotoPreview.value as string)
+  )
 }
 </script>
 
@@ -365,7 +349,7 @@ async function generateQrUrl() {
       <!-- <button @click.prevent="generarPDF(form)"> -->
       <button
         class="boton-secundario"
-        @click.prevent="generateQrUrl"
+        @click.prevent="construirCredencial"
       >
         Descargar
       </button>
