@@ -11,7 +11,7 @@ export default async function (
     // 1. Dibujar el código QR en el Canvas oculto
     await QRCode.toCanvas(canvas, valor, {
       width: 300,
-      margin: 2,
+      margin: 0,
     })
 
     // 2. Convertir el Canvas en un Blob (Archivo binario en memoria)
