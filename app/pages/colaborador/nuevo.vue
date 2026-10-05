@@ -1,18 +1,18 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'auth'
+  middleware: 'auth',
 })
 
-const router = useRouter()
+// const router = useRouter()
 
 async function empleadoGuardado(id: string) {
   // await router.push(`/colaborador/${id}`)
-  console.log(id);
+  console.log(id)
 }
 </script>
 
 <template>
-  <div>
+  <div class="contenedor ancho-lectura m-y-5-mov m-b-maximo-esc">
     <h1>DATOS DEL EMPLEADO - REGISTRO</h1>
 
     <FormsColaborador @saved="empleadoGuardado" />

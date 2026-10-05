@@ -239,7 +239,7 @@ function construirCredencial() {
         required
       >
         <!-- <option value="TODAS">Todas</option> -->
-        <option value="TOLUCA">TOLUCA</option>
+        <option value="ESTADO DE MÉXICO">ESTADO DE MÉXICO</option>
         <option value="CDMX">CDMX</option>
         <option value="CUERNAVACA">CUERNAVACA</option>
         <option value="HIDALGO">HIDALGO</option>
