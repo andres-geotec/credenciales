@@ -3,10 +3,10 @@ definePageMeta({
   middleware: 'auth',
 })
 
-// const router = useRouter()
+const router = useRouter()
 
 async function empleadoGuardado(id: string) {
-  // await router.push(`/colaborador/${id}`)
+  await router.push(`/colaborador/editar/${id}`)
   console.log(id)
 }
 </script>

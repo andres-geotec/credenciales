@@ -42,6 +42,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      domain: import.meta.env.NUXT_PAGE_DOMAIN,
       supabaseUrl: import.meta.env.NUXT_PUBLIC_SUPABASE_URL,
       supabaseAnonKey: import.meta.env.NUXT_PUBLIC_SUPABASE_KEY,
       emailAdmin: import.meta.env.NUXT_EMAIL_ADMIN,

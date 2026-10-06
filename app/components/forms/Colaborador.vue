@@ -15,6 +15,7 @@ const emit = defineEmits<{
 const supabase = useSupabaseClient()
 const config = useRuntimeConfig()
 const BUCKET_NAME = config.public.bucketImg
+const DOMAIN = config.public.domain
 
 const form = reactive({
   nombre: '',
@@ -210,8 +211,11 @@ async function guardar() {
 
 const canvasRef = ref<HTMLCanvasElement>()
 function construirCredencial() {
-  generarQR(canvasRef.value as HTMLCanvasElement, 'Hola', objectUrl =>
-    generarPDF(form as Colaborador, objectUrl, fotoPreview.value as string)
+  generarQR(
+    canvasRef.value as HTMLCanvasElement,
+    `${DOMAIN}/colaborador/${props.colaborador?.id}`,
+    objectUrl =>
+      generarPDF(form as Colaborador, objectUrl, fotoPreview.value as string)
   )
 }
 </script>
@@ -346,8 +350,16 @@ function construirCredencial() {
     </div>
 
     <div class="renglon-completo flex flex-contenido-final">
-      <!-- <button @click.prevent="generarPDF(form)"> -->
+      <NuxtLink
+        v-if="!editing"
+        to="/"
+        class="boton boton-secundario"
+      >
+        Cancelar
+      </NuxtLink>
+
       <button
+        v-if="editing"
         class="boton-secundario"
         @click.prevent="construirCredencial"
       >
@@ -355,6 +367,7 @@ function construirCredencial() {
       </button>
 
       <NuxtLink
+        v-if="editing"
         :to="`/colaborador/${props.colaborador?.id}`"
         class="boton boton-secundario"
       >
