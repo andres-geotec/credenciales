@@ -28,6 +28,9 @@ const form = reactive({
   vigencia: '',
   foto_url: '',
   entidad_federativa_id: '',
+  // entidad_federativa: '',
+  // regimen_patronal_id: '',
+  regimen_patronal: '',
 })
 
 const fotoFile = ref<File | null>(null)
@@ -341,6 +344,7 @@ function construirCredencial() {
         style="max-height: 250px"
       />
     </div>
+    <!-- <div class="renglon-completo">{{ form }}</div> -->
 
     <div class="renglon-completo flex flex-contenido-final">
       <NuxtLink

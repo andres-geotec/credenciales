@@ -1,4 +1,4 @@
-import type { EntidadFederativa } from "~/types/EntidadFederativa"
+import type { EntidadFederativa } from '~/types/EntidadFederativa'
 
 export async function useEntidadesFederativasStore() {
   const supabase = useSupabaseClient()
@@ -17,23 +17,24 @@ export async function useEntidadesFederativasStore() {
     error.value = null
 
     try {
-      const { data, error: consultaError } =
-        await useAsyncData<EntidadFederativa[]>(
-          'consulta-entidades-federativas',
-          async () => {
-            const { data, error } = await supabase
-              .from('entidades_federativas')
-              .select('id, nombre')
-              .order('nombre', { ascending: true })
+      const { data, error: consultaError } = await useAsyncData<
+        EntidadFederativa[]
+      >(
+        'consulta-entidades-federativas',
+        async () => {
+          const { data, error } = await supabase
+            .from('entidades_federativas')
+            .select('id, nombre, regimen_patronal_id')
+            .order('nombre', { ascending: true })
 
-            if (error) {
-              throw error
-            }
+          if (error) {
+            throw error
+          }
 
-            return data ?? []
-          },
-          { default: () => [] }
-        )
+          return data ?? []
+        },
+        { default: () => [] }
+      )
 
       if (consultaError.value) {
         throw consultaError.value

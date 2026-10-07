@@ -80,7 +80,6 @@ const colaboradoresFiltrados = computed(() => {
           v-model="filtro_ubicacion"
           :requerido="false"
         />
-        <!-- <EntidadesFederativas /> -->
       </div>
     </div>
 
