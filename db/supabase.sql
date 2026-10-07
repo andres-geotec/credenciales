@@ -149,14 +149,16 @@ returns table (
   curp text,
   rfc text,
   vigencia date,
-  foto_url text
+  foto_url text,
+  entidad_federativa text,
+  regimen_patronal text
 )
 language sql
 security definer
 stable
 set search_path = ''
 as $$
-  select
+  SELECT
     c.id,
     c.nombre,
     c.puesto,
@@ -166,9 +168,11 @@ as $$
     c.curp,
     c.rfc,
     c.vigencia,
-    c.foto_url
-  from public.colaboradores as c
-  where c.id = p_id;
+    c.foto_url,
+    e.nombre AS entidad_federativa,
+    r.clave AS regimen_patronal
+  FROM public.colaboradores AS c, public.entidades_federativas AS e, public.regimenes_patronales AS r
+  WHERE c.id = p_id AND c.entidad_federativa_id = e.id AND e.regimen_patronal_id = r.id;
 $$;
 
 revoke all on function public.obtener_colaborador_publico(uuid)

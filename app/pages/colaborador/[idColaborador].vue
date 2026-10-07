@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Colaborador } from '~/types/colaborador'
+import type { Colaborador } from '~/types/Colaborador'
 
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
@@ -53,7 +53,7 @@ if (!colaborador.value) {
       <div class="tarjeta-cuerpo">
         <p class="tarjeta-etiqueta flex flex-contenido-separado">
           <span class="etiqueta fondo-color-alerta">
-            {{ colaborador.descripcion }}
+            {{ colaborador.entidad_federativa }}
           </span>
           <span
             class="etiqueta"
