@@ -27,7 +27,6 @@ const form = reactive({
   rfc: '',
   vigencia: '',
   foto_url: '',
-  descripcion: '',
   entidad_federativa_id: '',
 })
 
@@ -53,7 +52,6 @@ watch(
     form.rfc = colaborador.rfc ?? ''
     form.vigencia = colaborador.vigencia ?? ''
     form.foto_url = colaborador.foto_url ?? ''
-    form.descripcion = colaborador.descripcion ?? ''
     form.entidad_federativa_id = colaborador.entidad_federativa_id ?? ''
 
     // Preview de la foto que ya existe
@@ -169,7 +167,6 @@ async function guardar() {
       rfc: form.rfc,
       vigencia: form.vigencia,
       foto_url: fotoUrl,
-      descripcion: form.descripcion || null,
       entidad_federativa_id: form.entidad_federativa_id,
       updated_at: new Date().toISOString(),
     }
@@ -244,16 +241,6 @@ function construirCredencial() {
         id="entidad-federativa"
         v-model="form.entidad_federativa_id"
       />
-      <!-- <select
-        id="carpeta"
-        v-model="form.descripcion"
-        required
-      >
-        <option value="ESTADO DE MÉXICO">ESTADO DE MÉXICO</option>
-        <option value="CDMX">CDMX</option>
-        <option value="CUERNAVACA">CUERNAVACA</option>
-        <option value="HIDALGO">HIDALGO</option>
-      </select> -->
     </div>
 
     <div>

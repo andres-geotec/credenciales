@@ -26,7 +26,7 @@ const { data: colaborador, error } = await useAsyncData(
         rfc,
         vigencia,
         foto_url,
-        descripcion
+        entidad_federativa_id
       `
       )
       .eq('id', idColaborador)

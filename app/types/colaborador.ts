@@ -9,7 +9,9 @@ export interface Colaborador {
   rfc: string
   vigencia: string
   foto_url: string
+  entidad_federativa_id: string
   entidad_federativa: string
+  regimen_patronal_id: string
   regimen_patronal: string
   created_at?: string
   updated_at?: string
