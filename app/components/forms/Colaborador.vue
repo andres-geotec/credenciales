@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, reactive } from 'vue'
-import type { Colaborador } from '~/types/colaborador'
+import type { Colaborador } from '~/types/Colaborador'
 import generarPDF from '~/utils/pdf'
 import generarQR from '~/utils/qr'
 
@@ -28,6 +28,7 @@ const form = reactive({
   vigencia: '',
   foto_url: '',
   descripcion: '',
+  entidad_federativa_id: '',
 })
 
 const fotoFile = ref<File | null>(null)
@@ -53,6 +54,7 @@ watch(
     form.vigencia = colaborador.vigencia ?? ''
     form.foto_url = colaborador.foto_url ?? ''
     form.descripcion = colaborador.descripcion ?? ''
+    form.entidad_federativa_id = colaborador.entidad_federativa_id ?? ''
 
     // Preview de la foto que ya existe
     fotoPreview.value = colaborador.foto_url ?? null
@@ -168,6 +170,7 @@ async function guardar() {
       vigencia: form.vigencia,
       foto_url: fotoUrl,
       descripcion: form.descripcion || null,
+      entidad_federativa_id: form.entidad_federativa_id,
       updated_at: new Date().toISOString(),
     }
 
@@ -236,8 +239,11 @@ function construirCredencial() {
     </div>
 
     <div>
-      <label for="carpeta">Entidad de trabajo:</label>
-      <EntidadesFederativas />
+      <label for="entidad-federativa">Entidad de trabajo:</label>
+      <EntidadesFederativas
+        id="entidad-federativa"
+        v-model="form.entidad_federativa_id"
+      />
       <!-- <select
         id="carpeta"
         v-model="form.descripcion"

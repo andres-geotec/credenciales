@@ -10,6 +10,7 @@ export interface Colaborador {
   vigencia: string
   foto_url: string
   descripcion: string | null
+  entidad_federativa_id: string
   created_at?: string
   updated_at?: string
 }
