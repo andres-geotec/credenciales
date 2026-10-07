@@ -14,7 +14,7 @@ const emit = defineEmits<{
 
 const supabase = useSupabaseClient()
 const config = useRuntimeConfig()
-const BUCKET_NAME = config.public.bucketImg
+const BUCKET_NAME = 'colaboradores'
 const DOMAIN = config.public.domain
 
 const form = reactive({
@@ -118,9 +118,9 @@ async function subirFoto(): Promise<string | null> {
    * Nombre único para evitar colisiones.
    *
    * Ejemplo:
-   * empleados/550e8400-e29b-41d4-a716-446655440000.jpg
+   * fotos/550e8400-e29b-41d4-a716-446655440000.jpg
    */
-  const fileName = `colaborador/${crypto.randomUUID()}.${extension}`
+  const fileName = `fotos/${crypto.randomUUID()}.${extension}`
   const { data, error } = await supabase.storage
     .from(BUCKET_NAME)
     .upload(fileName, file, {
@@ -236,18 +236,18 @@ function construirCredencial() {
     </div>
 
     <div>
-      <label for="carpeta">Nombre:</label>
-      <select
+      <label for="carpeta">Entidad de trabajo:</label>
+      <EntidadesFederativas />
+      <!-- <select
         id="carpeta"
         v-model="form.descripcion"
         required
       >
-        <!-- <option value="TODAS">Todas</option> -->
         <option value="ESTADO DE MÉXICO">ESTADO DE MÉXICO</option>
         <option value="CDMX">CDMX</option>
         <option value="CUERNAVACA">CUERNAVACA</option>
         <option value="HIDALGO">HIDALGO</option>
-      </select>
+      </select> -->
     </div>
 
     <div>
