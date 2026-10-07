@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, reactive } from 'vue'
+import { useEntidadesFederativasStore } from '~/stores/entidadesFederativas'
 import type { Colaborador } from '~/types/Colaborador'
 import generarPDF from '~/utils/pdf'
 import generarQR from '~/utils/qr'
@@ -39,6 +40,8 @@ const fotoPreview = ref<string | null>(null)
 const loading = ref(false)
 const errorMessage = ref('')
 
+const { entidadesObj } = await useEntidadesFederativasStore()
+
 watch(
   () => props.colaborador,
   colaborador => {
@@ -56,6 +59,8 @@ watch(
     form.vigencia = colaborador.vigencia ?? ''
     form.foto_url = colaborador.foto_url ?? ''
     form.entidad_federativa_id = colaborador.entidad_federativa_id ?? ''
+    form.regimen_patronal =
+      entidadesObj[form.entidad_federativa_id]?.regimen_patronal.clave ?? ''
 
     // Preview de la foto que ya existe
     fotoPreview.value = colaborador.foto_url ?? null

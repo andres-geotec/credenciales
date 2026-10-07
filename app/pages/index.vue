@@ -107,7 +107,9 @@ const colaboradoresFiltrados = computed(() => {
               <br />
               <small>
                 <span class="etiqueta">
-                  {{ entidadesObj[colaborador.entidad_federativa_id] }}
+                  {{
+                    entidadesObj[colaborador.entidad_federativa_id]?.nombre
+                  }}
                 </span>
                 {{ colaborador.puesto }} | {{ colaborador.vigencia }}
               </small>

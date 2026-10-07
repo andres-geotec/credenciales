@@ -1,5 +1,5 @@
 import { jsPDF } from 'jspdf'
-import type { Colaborador } from '~/types/colaborador'
+import type { Colaborador } from '~/types/Colaborador'
 
 const doc = new jsPDF({
   unit: 'mm',
@@ -21,19 +21,21 @@ const empresa = {
   nombre: 'SERVIPREL, S.A. DE C.V.',
   rfc: 'SER111010AM9',
   repse: 'STPS/UTD/DGIFT/ARR/4152/2024',
-  r_patronal: {
-    CDMX: 'Y5242147105',
-    otros: 'C2234478107',
-  },
   domicilio: 'RODOLFO GAONA No. 3, COL. LOMAS DE SOTELO, CDMX, C.P. 11200',
   tel: ['555-077-26-84', '555-816-27-89', '800-837-40-95'],
 }
 
-function agregarTexto(texto: string, x: number, y: number, margenTop: number = 1, fontSize: number = 10) {
+function agregarTexto(
+  texto: string,
+  x: number,
+  y: number,
+  margenTop: number = 1,
+  fontSize: number = 10
+) {
   doc.setFontSize(fontSize)
   // fontSize 12 = 3 en y
   // fontSize 10 = 2.5 en y
-  y += (fontSize / 4) + margenTop
+  y += fontSize / 4 + margenTop
 
   doc.setFont('helvetica', 'bold')
   doc.text(texto, x, y, { align: 'center' })
@@ -56,22 +58,33 @@ function reverso(r_patronal: string, qrObjectURL: string) {
   y_actual = agregarTexto('REGISTRO PATRONAL:', x_actual, y_actual, 4)
   y_actual = agregarTexto(r_patronal, x_actual, y_actual)
   y_actual = agregarTexto('TEL:', x_actual, y_actual, 4)
-  y_actual = agregarTexto(`${empresa.tel[0]} / ${empresa.tel[1]} /`, x_actual, y_actual)
+  y_actual = agregarTexto(
+    `${empresa.tel[0]} / ${empresa.tel[1]} /`,
+    x_actual,
+    y_actual
+  )
   y_actual = agregarTexto(`${empresa.tel[2]}`, x_actual, y_actual)
 
   const tamanio_qr = 25
   // doc.rect(x_inicial + 2, y_inicial + alto - tamanio_qr - 2, tamanio_qr, tamanio_qr)
   doc.addImage(
-    qrObjectURL, 'JPEG',
+    qrObjectURL,
+    'JPEG',
     x_inicial + 2,
     y_inicial + alto - tamanio_qr - 2,
-    tamanio_qr, tamanio_qr
+    tamanio_qr,
+    tamanio_qr
   )
 
   y_actual += 26
-  doc.line(x_inicial + tamanio_qr + 4, y_actual, x_inicial + ancho - 4, y_actual)
+  doc.line(
+    x_inicial + tamanio_qr + 4,
+    y_actual,
+    x_inicial + ancho - 4,
+    y_actual
+  )
   // doc.text('Firmna del empleado', x_actual, y_actual, { align: 'center' })
-  agregarTexto('FIRMA DEL\nEMPLEADO', x_actual + (tamanio_qr / 2), y_actual)
+  agregarTexto('FIRMA DEL\nEMPLEADO', x_actual + tamanio_qr / 2, y_actual)
 }
 
 // COLUMNA DERECHA
@@ -83,8 +96,9 @@ function frontal(colaborador: Colaborador, fotoPreview: string) {
   y_actual = agregarTexto(empresa.nombre, x_actual, y_actual, 4, 12)
 
   y_actual += 4
-  const procentaje = .85
-  const alto_foto = 45 * procentaje, ancho_foto = 35 * procentaje
+  const procentaje = 0.85
+  const alto_foto = 45 * procentaje,
+    ancho_foto = 35 * procentaje
   if (fotoPreview) {
     doc.addImage(
       fotoPreview,
@@ -115,8 +129,8 @@ export default async function (
   fotoPreview: string
 ) {
   margenes()
-  reverso(colaborador.descripcion === 'CDMX' ? empresa.r_patronal.CDMX : empresa.r_patronal.otros, qrObjectURL)
+  reverso(colaborador.regimen_patronal, qrObjectURL)
   frontal(colaborador, fotoPreview)
 
-  doc.save(`Cred_${colaborador.descripcion}_${colaborador.nombre.replace(/ /g, '_')}.pdf`)
+  doc.save(`Cred_${colaborador.entidad_federativa}_${colaborador.nombre.replace(/ /g, '_')}.pdf`)
 }
