@@ -49,6 +49,7 @@ if (error.value || !colaborador.value) {
 
 async function colaboradorGuardado() {
   await router.push(`/colaborador/${idColaborador}`)
+  // console.log(id)
 }
 </script>
 

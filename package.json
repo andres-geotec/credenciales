@@ -19,6 +19,7 @@
     "reinstall:ci": "npm run clean:ci && npm ci"
   },
   "dependencies": {
+    "@centrogeomx/sisdai-componentes": "^4.14.1",
     "@nuxt/eslint": "^1.17.0",
     "@nuxtjs/supabase": "^2.0.10",
     "@sisdai.org/sisdai-estilos": "^1.11.0",

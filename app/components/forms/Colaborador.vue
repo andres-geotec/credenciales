@@ -176,7 +176,7 @@ async function guardar() {
       vigencia: form.vigencia,
       foto_url: fotoUrl,
       entidad_federativa_id: form.entidad_federativa_id,
-      updated_at: new Date().toISOString(),
+      // updated_at: new Date().toISOString(),
     }
 
     // Edición

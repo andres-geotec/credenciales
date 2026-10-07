@@ -24,9 +24,7 @@ export async function useEntidadesFederativasStore() {
         async () => {
           const { data, error } = await supabase
             .from('entidades_federativas')
-            .select(
-              'id, nombre, regimen_patronal:regimenes_patronales(clave)'
-            )
+            .select('id, nombre, regimen_patronal:regimenes_patronales(clave)')
             .order('nombre', { ascending: true })
 
           if (error) {
@@ -58,12 +56,10 @@ export async function useEntidadesFederativasStore() {
     cargando,
     error,
     entidadesObj: Object.fromEntries(
-      entidades.value?.map(
-        ({ id, nombre, regimen_patronal }) => [
-          id,
-          { nombre, regimen_patronal },
-        ]
-      ) ?? []
+      entidades.value?.map(({ id, nombre, regimen_patronal }) => [
+        id,
+        { nombre, regimen_patronal },
+      ]) ?? []
     ),
   }
 }

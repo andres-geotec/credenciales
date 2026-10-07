@@ -96,7 +96,7 @@ function frontal(colaborador: Colaborador, fotoPreview: string) {
   y_actual = agregarTexto(empresa.nombre, x_actual, y_actual, 4, 12)
 
   y_actual += 4
-  const procentaje = 0.85
+  const procentaje = 0.95
   const alto_foto = 45 * procentaje,
     ancho_foto = 35 * procentaje
   if (fotoPreview) {
@@ -114,10 +114,15 @@ function frontal(colaborador: Colaborador, fotoPreview: string) {
   }
   y_actual += alto_foto
 
-  y_actual = agregarTexto(colaborador.nombre, x_actual, y_actual, 4)
+  y_actual = agregarTexto(
+    colaborador.nombre.substring(0, 24),
+    x_actual,
+    y_actual,
+    4
+  )
   let texto = `PUESTO: ${colaborador.puesto || '—'}`
   texto += `\nEMAGO${colaborador.codigo_interno || '—'}SERV`
-  texto += `\nFECHA DE INGRESO: ${FormatoFecha(colaborador.f_ingreso)}`
+  // texto += `\nFECHA DE INGRESO: ${FormatoFecha(colaborador.f_ingreso)}`
   texto += `\nVIGENCIA: ${FormatoFecha(colaborador.vigencia)}`
   texto += `\nNSS IMSS: ${colaborador.nss_imss || '—'}`
   agregarTexto(texto, x_actual, y_actual, 4)
@@ -132,5 +137,7 @@ export default async function (
   reverso(colaborador.regimen_patronal, qrObjectURL)
   frontal(colaborador, fotoPreview)
 
-  doc.save(`Cred_${colaborador.entidad_federativa}_${colaborador.nombre.replace(/ /g, '_')}.pdf`)
+  doc.save(
+    `Cred_${colaborador.entidad_federativa}_${colaborador.nombre.replace(/ /g, '_')}.pdf`
+  )
 }
