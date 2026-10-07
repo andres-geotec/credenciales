@@ -50,5 +50,12 @@ export async function useEntidadesFederativasStore() {
     }
   }
 
-  return { entidades, cargando, error }
+  return {
+    entidades,
+    cargando,
+    error,
+    entidadesObj: Object.fromEntries(
+      entidades.value?.map(({ id, nombre }) => [id, nombre]) ?? []
+    ),
+  }
 }

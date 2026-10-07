@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { Colaborador } from '~/types/colaborador'
+import { useEntidadesFederativasStore } from '~/stores/entidadesFederativas'
+import type { Colaborador } from '~/types/Colaborador'
 
 definePageMeta({
   middleware: 'auth',
@@ -20,7 +21,7 @@ const {
       nombre,
       puesto,
       vigencia,
-      descripcion
+      entidad_federativa_id
     `
     )
     // .order('apellidos', { ascending: true })
@@ -33,8 +34,10 @@ const {
   return data as Colaborador[]
 })
 
+const { entidadesObj } = await useEntidadesFederativasStore()
+
 const filtro_texto = ref('')
-const filtro_ubicacion = ref('TODAS')
+const filtro_ubicacion = ref('TODO')
 const colaboradoresFiltrados = computed(() => {
   return colaboradores.value?.filter(colaborador => {
     const coincide_texto =
@@ -46,8 +49,8 @@ const colaboradoresFiltrados = computed(() => {
       )
 
     const coincide_ubicacion =
-      filtro_ubicacion.value === 'TODAS' ||
-      NormalizarTexto(colaborador.descripcion as string) ===
+      filtro_ubicacion.value === 'TODO' ||
+      NormalizarTexto(colaborador.entidad_federativa_id as string) ===
         NormalizarTexto(filtro_ubicacion.value)
 
     return coincide_texto && coincide_ubicacion
@@ -71,17 +74,13 @@ const colaboradoresFiltrados = computed(() => {
       </div>
 
       <div class="m-y-3">
-        <label for="filtro">Filtrar por ubicación:</label>
-        <select
-          id="filtro"
+        <label for="entidad-federativa">Filtrar por entidad:</label>
+        <EntidadesFederativas
+          id="entidad-federativa"
           v-model="filtro_ubicacion"
-        >
-          <option value="TODAS">Todas</option>
-          <option value="ESTADO DE MÉXICO">ESTADO DE MÉXICO</option>
-          <option value="CDMX">CDMX</option>
-          <option value="CUERNAVACA">CUERNAVACA</option>
-          <option value="HIDALGO">HIDALGO</option>
-        </select>
+          :requerido="false"
+        />
+        <!-- <EntidadesFederativas /> -->
       </div>
     </div>
 
@@ -109,7 +108,7 @@ const colaboradoresFiltrados = computed(() => {
               <br />
               <small>
                 <span class="etiqueta">
-                  {{ colaborador.descripcion }}
+                  {{ entidadesObj[colaborador.entidad_federativa_id] }}
                 </span>
                 {{ colaborador.puesto }} | {{ colaborador.vigencia }}
               </small>

@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { defineEmits, defineProps, withDefaults } from 'vue'
 import { useEntidadesFederativasStore } from '~/stores/entidadesFederativas'
 
 const props = withDefaults(
   defineProps<{
     id?: string
     modelValue: string
+    requerido?: boolean
   }>(),
-  { id: 'entidad-federativa' }
+  { id: 'entidad-federativa', requerido: true }
 )
 
 const emit = defineEmits<{
@@ -21,7 +23,7 @@ const { entidades, cargando, error } = await useEntidadesFederativasStore()
     :id="props.id"
     :value="props.modelValue"
     :disabled="cargando || !entidades?.length"
-    required
+    :required="props.requerido"
     @change="
       emit('update:modelValue', ($event.target as HTMLSelectElement).value)
     "
@@ -31,6 +33,12 @@ const { entidades, cargando, error } = await useEntidadesFederativasStore()
       disabled
     >
       {{ cargando ? 'Cargando entidades...' : 'Selecciona una entidad' }}
+    </option>
+    <option
+      v-if="!props.requerido"
+      value="TODO"
+    >
+      TODO
     </option>
     <option
       v-for="entidad in entidades"
