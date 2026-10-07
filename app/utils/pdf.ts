@@ -1,17 +1,11 @@
 import { jsPDF } from 'jspdf'
-import type { Colaborador } from '~/types/Colaborador'
-
-const doc = new jsPDF({
-  unit: 'mm',
-  format: 'letter',
-  orientation: 'portrait',
-})
+import type { Colaborador } from '~/types/Colaborador2'
 
 const x_inicial = 18,
   y_inicial = 19,
   alto = 84,
   ancho = 60
-function margenes() {
+function margenes(doc: jsPDF) {
   doc.setLineWidth(0.5)
   doc.rect(x_inicial, y_inicial, ancho * 2, alto)
   doc.line(x_inicial + ancho, y_inicial, x_inicial + ancho, y_inicial + alto)
@@ -25,7 +19,7 @@ const empresa = {
   tel: ['555-077-26-84', '555-816-27-89', '800-837-40-95'],
 }
 
-function agregarTexto(
+function agregarTexto(doc: jsPDF,
   texto: string,
   x: number,
   y: number,
@@ -43,27 +37,27 @@ function agregarTexto(
 }
 
 // COLUMNA IZQUIERDA
-function reverso(r_patronal: string, qrObjectURL: string) {
+function reverso(doc: jsPDF, r_patronal: string, qrObjectURL: string) {
   const x_actual = x_inicial + ancho / 2
   let y_actual = y_inicial
 
-  y_actual = agregarTexto(empresa.nombre, x_actual, y_actual, 2, 12)
+  y_actual = agregarTexto(doc, empresa.nombre, x_actual, y_actual, 2, 12)
   // doc.setFont('helvetica', 'normal')
-  y_actual = agregarTexto('RFC:', x_actual, y_actual, 4)
-  y_actual = agregarTexto(empresa.rfc, x_actual, y_actual)
-  // y_actual = agregarTexto(`RFC:\n${empresa.rfc}`, x_actual, y_actual, 4)
+  y_actual = agregarTexto(doc, 'RFC:', x_actual, y_actual, 4)
+  y_actual = agregarTexto(doc, empresa.rfc, x_actual, y_actual)
+  // y_actual = agregarTexto(doc, `RFC:\n${empresa.rfc}`, x_actual, y_actual, 4)
   // y_actual += 2.5 + 1
-  y_actual = agregarTexto('REPSE:', x_actual, y_actual, 4)
-  y_actual = agregarTexto(empresa.repse, x_actual, y_actual)
-  y_actual = agregarTexto('REGISTRO PATRONAL:', x_actual, y_actual, 4)
-  y_actual = agregarTexto(r_patronal, x_actual, y_actual)
-  y_actual = agregarTexto('TEL:', x_actual, y_actual, 4)
-  y_actual = agregarTexto(
+  y_actual = agregarTexto(doc, 'REPSE:', x_actual, y_actual, 4)
+  y_actual = agregarTexto(doc, empresa.repse, x_actual, y_actual)
+  y_actual = agregarTexto(doc, 'REGISTRO PATRONAL:', x_actual, y_actual, 4)
+  y_actual = agregarTexto(doc, r_patronal, x_actual, y_actual)
+  y_actual = agregarTexto(doc, 'TEL:', x_actual, y_actual, 4)
+  y_actual = agregarTexto(doc,
     `${empresa.tel[0]} / ${empresa.tel[1]} /`,
     x_actual,
     y_actual
   )
-  y_actual = agregarTexto(`${empresa.tel[2]}`, x_actual, y_actual)
+  y_actual = agregarTexto(doc, `${empresa.tel[2]}`, x_actual, y_actual)
 
   const tamanio_qr = 25
   // doc.rect(x_inicial + 2, y_inicial + alto - tamanio_qr - 2, tamanio_qr, tamanio_qr)
@@ -84,16 +78,16 @@ function reverso(r_patronal: string, qrObjectURL: string) {
     y_actual
   )
   // doc.text('Firmna del empleado', x_actual, y_actual, { align: 'center' })
-  agregarTexto('FIRMA DEL\nEMPLEADO', x_actual + tamanio_qr / 2, y_actual)
+  agregarTexto(doc, 'FIRMA DEL\nEMPLEADO', x_actual + tamanio_qr / 2, y_actual)
 }
 
 // COLUMNA DERECHA
-function frontal(colaborador: Colaborador, fotoPreview: string) {
+function frontal(doc: jsPDF, colaborador: Colaborador, fotoPreview: string) {
   const x_actual = x_inicial + ancho + ancho / 2
   let y_actual = y_inicial
 
-  y_actual = agregarTexto('ESTA PERSONA LABORA PARA:', x_actual, y_actual)
-  y_actual = agregarTexto(empresa.nombre, x_actual, y_actual, 4, 12)
+  y_actual = agregarTexto(doc, 'ESTA PERSONA LABORA PARA:', x_actual, y_actual)
+  y_actual = agregarTexto(doc, empresa.nombre, x_actual, y_actual, 4, 12)
 
   y_actual += 4
   const procentaje = 0.95
@@ -114,18 +108,18 @@ function frontal(colaborador: Colaborador, fotoPreview: string) {
   }
   y_actual += alto_foto
 
-  y_actual = agregarTexto(
+  y_actual = agregarTexto(doc,
     colaborador.nombre.substring(0, 24),
     x_actual,
     y_actual,
     4
   )
-  let texto = `PUESTO: ${colaborador.puesto || '—'}`
+  let texto = `${colaborador.puesto || '—'}`
   texto += `\nEMAGO${colaborador.codigo_interno || '—'}SERV`
   // texto += `\nFECHA DE INGRESO: ${FormatoFecha(colaborador.f_ingreso)}`
   texto += `\nVIGENCIA: ${FormatoFecha(colaborador.vigencia)}`
   texto += `\nNSS IMSS: ${colaborador.nss_imss || '—'}`
-  agregarTexto(texto, x_actual, y_actual, 4)
+  agregarTexto(doc, texto, x_actual, y_actual, 4)
 }
 
 export default async function (
@@ -133,9 +127,15 @@ export default async function (
   qrObjectURL: string,
   fotoPreview: string
 ) {
-  margenes()
-  reverso(colaborador.regimen_patronal, qrObjectURL)
-  frontal(colaborador, fotoPreview)
+  const doc = new jsPDF({
+    unit: 'mm',
+    format: 'letter',
+    orientation: 'portrait',
+  })
+
+  margenes(doc)
+  reverso(doc, colaborador.regimen_patronal, qrObjectURL)
+  frontal(doc, colaborador, fotoPreview)
 
   doc.save(
     `Cred_${colaborador.entidad_federativa}_${colaborador.nombre.replace(/ /g, '_')}.pdf`

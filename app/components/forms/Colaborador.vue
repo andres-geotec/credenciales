@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, reactive } from 'vue'
 import { useEntidadesFederativasStore } from '~/stores/entidadesFederativas'
-import type { Colaborador } from '~/types/Colaborador'
+import type { Colaborador } from '~/types/Colaborador2'
 import generarPDF from '~/utils/pdf'
 import generarQR from '~/utils/qr'
 
@@ -262,7 +262,7 @@ function construirCredencial() {
     </div>
 
     <div>
-      <label for="codigo_interno">Código Interno:</label>
+      <label for="codigo_interno">Numero de emergencia:</label>
       <input
         id="codigo_interno"
         v-model="form.codigo_interno"

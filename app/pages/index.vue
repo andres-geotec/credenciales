@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useEntidadesFederativasStore } from '~/stores/entidadesFederativas'
-import type { Colaborador } from '~/types/Colaborador'
+import type { Colaborador } from '~/types/Colaborador2'
 
 definePageMeta({
   middleware: 'auth',

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Colaborador } from '~/types/Colaborador'
+import type { Colaborador } from '~/types/Colaborador2'
 
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
